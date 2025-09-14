@@ -6,7 +6,6 @@
 ## Team Members
 
 * Faustine Emmanuel
-* Laureen Kidunda
 * Cleven Godson
 
 ## Problem
