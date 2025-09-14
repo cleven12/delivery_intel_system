@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 # Create Flask app
 app = Flask(__name__)
-app.secret_key = os.environ.get("SESSION_SECRET", "hackathon-delivery-intelligence-2024")
+app.secret_key = os.environ.get("SESSION_SECRET", "hackathon-delivery-intelligence-2025")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
 
 # Configuration
