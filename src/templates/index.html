@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}Upload Dataset - Delivery Intelligence System{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <!-- Hero Section -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold mb-3">
+                <i class="fas fa-brain text-primary me-3"></i>
+                AI-Powered Delivery Intelligence
+            </h1>
+            <p class="lead text-muted mb-4">
+                Upload your delivery dataset to get intelligent insights, predictions, and anomaly detection
+            </p>
+        </div>
+
+        <!-- Upload Card -->
+        <div class="card shadow">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i class="fas fa-upload me-2"></i>
+                    Upload Delivery Dataset
+                </h3>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data">
+                    <div class="mb-4">
+                        <label for="file" class="form-label">
+                            <i class="fas fa-file-csv me-2"></i>
+                            Select CSV File
+                        </label>
+                        <input type="file" 
+                               class="form-control form-control-lg" 
+                               id="file" 
+                               name="file" 
+                               accept=".csv"
+                               required>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Upload a CSV file containing delivery data. Maximum file size: 200MB
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket me-2"></i>
+                            Process Dataset
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 bg-secondary">
+                    <div class="card-body text-center">
+                        <div class="rounded-circle bg-primary d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-clock text-white fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Delivery Prediction</h5>
+                        <p class="card-text text-muted">
+                            Predict delivery completion times using advanced machine learning algorithms
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 bg-secondary">
+                    <div class="card-body text-center">
+                        <div class="rounded-circle bg-warning d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-exclamation-triangle text-dark fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Anomaly Detection</h5>
+                        <p class="card-text text-muted">
+                            Identify suspicious delivery patterns and potential operational issues
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 border-0 bg-secondary">
+                    <div class="card-body text-center">
+                        <div class="rounded-circle bg-info d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-chart-bar text-white fa-lg"></i>
+                        </div>
+                        <h5 class="card-title">Interactive Analytics</h5>
+                        <p class="card-text text-muted">
+                            Visualize trends and insights with dynamic charts and dashboards
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Requirements -->
+        <div class="card mt-4 border-0 bg-secondary">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="fas fa-database me-2"></i>
+                    Dataset Requirements
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Expected Columns:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Delivery timestamps</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Location data (cities, coordinates)</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Courier information</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Delivery times or durations</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Supported Features:</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-cogs text-info me-2"></i>Automatic data cleaning</li>
+                            <li><i class="fas fa-cogs text-info me-2"></i>Feature engineering</li>
+                            <li><i class="fas fa-cogs text-info me-2"></i>Missing value handling</li>
+                            <li><i class="fas fa-cogs text-info me-2"></i>Timestamp standardization</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('file').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const fileSize = file.size / 1024 / 1024; // Convert to MB
+        if (fileSize > 200) {
+            alert('File size exceeds 200MB limit. Please select a smaller file.');
+            e.target.value = '';
+        }
+    }
+});
+</script>
+{% endblock %}

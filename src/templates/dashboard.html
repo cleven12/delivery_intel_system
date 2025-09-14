@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Delivery Intelligence System{% endblock %}
+
+{% block content %}
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-md-3 mb-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ "{:,}".format(total_deliveries) }}</h4>
+                        <p class="card-text">Total Deliveries</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-box fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ avg_delivery_time }}h</h4>
+                        <p class="card-text">Avg Delivery Time</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-warning text-dark">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ total_anomalies }}</h4>
+                        <p class="card-text">Anomalies Detected</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title">{{ accuracy_score }}%</h4>
+                        <p class="card-text">Model Accuracy</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-bullseye fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Actual vs Predicted Chart -->
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Actual vs Predicted Delivery Times
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="actualVsPredictedChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Anomaly Distribution Chart -->
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-pie me-2"></i>
+                    Anomaly Distribution
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="anomalyChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- City Analysis Chart -->
+{% if chart_data.city_analysis and chart_data.city_analysis.labels %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-map-marker-alt me-2"></i>
+                    Average Delivery Time by City
+                </h5>
+            </div>
+            <div class="card-body">
+                <canvas id="cityAnalysisChart" height="100"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Anomaly Details -->
+{% if anomaly_data and anomaly_data.anomalies %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-exclamation-circle me-2"></i>
+                    Anomaly Details
+                </h5>
+                <span class="badge bg-warning">{{ anomaly_data.anomalies|length }} anomalies found</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Index</th>
+                                <th>Actual Time (hours)</th>
+                                <th>Deviation from Mean</th>
+                                <th>Anomaly Type</th>
+                                <th>Z-Score</th>
+                                {% if anomaly_data.anomalies[0].get('city') %}<th>City</th>{% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for anomaly in anomaly_data.anomalies[:20] %}
+                            <tr>
+                                <td>{{ anomaly.index }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'danger' if anomaly.actual_time > 5 else 'warning' if anomaly.actual_time < 0.5 else 'secondary' }}">
+                                        {{ "%.2f"|format(anomaly.actual_time) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="text-{{ 'danger' if anomaly.deviation_from_mean > 0 else 'info' }}">
+                                        {{ "%.2f"|format(anomaly.deviation_from_mean) }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge bg-{{ 'danger' if 'Long' in anomaly.anomaly_type else 'info' if 'Short' in anomaly.anomaly_type else 'secondary' }}">
+                                        {{ anomaly.anomaly_type }}
+                                    </span>
+                                </td>
+                                <td>{{ "%.2f"|format(anomaly.z_score) }}</td>
+                                {% if anomaly.get('city') %}<td>{{ anomaly.city }}</td>{% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% if anomaly_data.anomalies|length > 20 %}
+                <div class="text-center mt-3">
+                    <small class="text-muted">Showing top 20 anomalies out of {{ anomaly_data.anomalies|length }} total</small>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Model Performance Metrics -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-cogs me-2"></i>
+                    Model Performance & Statistics
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% if anomaly_data and anomaly_data.statistics %}
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Anomaly Detection Statistics</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Total Records:</strong> {{ "{:,}".format(anomaly_data.statistics.total_records) }}</li>
+                            <li><strong>Anomalies Found:</strong> {{ anomaly_data.statistics.total_anomalies }}</li>
+                            <li><strong>Anomaly Rate:</strong> {{ "%.2f"|format(anomaly_data.statistics.anomaly_percentage) }}%</li>
+                            <li><strong>Mean Delivery Time:</strong> {{ "%.2f"|format(anomaly_data.statistics.mean_delivery_time) }} hours</li>
+                            <li><strong>Standard Deviation:</strong> {{ "%.2f"|format(anomaly_data.statistics.std_delivery_time) }} hours</li>
+                        </ul>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="col-md-6">
+                        <h6 class="text-primary">Prediction Model Metrics</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>R² Score:</strong> {{ accuracy_score }}%</li>
+                            <li><strong>Algorithm:</strong> Linear Regression (NumPy)</li>
+                            <li><strong>Features Used:</strong> Distance, Time, Location</li>
+                            <li><strong>Training Method:</strong> Normal Equation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+<script>
+// Initialize charts with data from Flask
+const chartData = {{ chart_data | tojson | safe }};
+
+// Initialize all charts
+document.addEventListener('DOMContentLoaded', function() {
+    initializeCharts(chartData);
+});
+</script>
+{% endblock %}

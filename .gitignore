@@ -1,0 +1,6 @@
+.venv
+venv
+src/uploads/*
+__pycache__/
+uploads/*
+
