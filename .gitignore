@@ -2,5 +2,5 @@
 venv
 src/uploads/*
 __pycache__/
-uploads/*
-
+src/uploads/*
+QN.md
