@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# delivery_intel_system
-The Delivery Intelligence System is a smart solution designed to streamline delivery operations using AI and data analytics
-=======
 
 ---
 
@@ -156,4 +152,3 @@ The code for this project is available on GitHub:
 * **Uploads Directory**: Used for storing CSV files temporarily during processing.
 
 ---
->>>>>>> 2da0a5d (Initial commit - connected to new GitHub repo)
