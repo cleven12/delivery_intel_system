@@ -1,7 +1,7 @@
 
 ---
 
-# Delivery Intelligence System: Presentation
+# Delivery Intelligence System
 
 **Team**: Kilitech Duo  
 **Team Members**: Faustine Emmanuel, Cleven Godson  
@@ -18,7 +18,6 @@ Tanzania’s postal and courier sector struggles with unpredictable delivery tim
 ### Challenge:
 1. Predict parcel delivery completion times.
 2. Detect anomalies (e.g., fraud, operational issues).
-3. Provide clear, actionable visualizations.
 
 ---
 
@@ -166,9 +165,3 @@ def get_chart_data():
 * Intuitive dashboard empowers TCRA to optimize logistics.
 
 ---
-
-## Acknowledgments
-
-We would like to thank **Madaraka Masasi** for his invaluable guidance throughout the project.
-
-```
