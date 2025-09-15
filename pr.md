@@ -29,7 +29,7 @@ Our **Delivery Intelligence System** is a Flask-based web app that uses AI to:
 - Visualize insights via an interactive dashboard.
 
 ### Live Demo:
-- [kilitechduo.pythonanywhere.com](http://anna2tx.pythonanywhere.com)
+- [anna2tx.pythonanywhere.com](http://anna2tx.pythonanywhere.com)
 
 ---
 
