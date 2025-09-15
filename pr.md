@@ -13,7 +13,7 @@
 
 ## Problem
 
-Tanzania’s postal and courier sector struggles with unpredictable delivery times, inefficiencies, and potential fraud. Manually analyzing 470k+ delivery records (delivery_five_cities_tanzania.csv) is slow and error-prone, hindering optimization.
+Tanzania’s postal and courier sector struggles with unpredictable delivery times, inefficiencies, and potential fraud. Manually analyzing 470k+ delivery records ```(delivery_five_cities_tanzania.csv)``` is slow and error-prone, hindering optimization.
 
 ### Challenge:
 1. Predict parcel delivery completion times.
@@ -140,7 +140,7 @@ def get_chart_data():
 
 * Chunked processing for 470k+ records.
 * Extensive error handling (e.g., invalid CSVs, missing columns).
-* Logging for debugging and demo reliability.
+* Logging for debugging and tracing.
 
 ### Scalability:
 
@@ -150,18 +150,18 @@ def get_chart_data():
 
 ---
 
-## Impact for TCRA
+## Impact 
 
 ### Business Value:
 
-* Reduces delays and fraud, saving costs (e.g., 5% anomaly detection could cut losses by X%).
+* Reduces delays and fraud, saving costs (e.g., 5% anomaly detection could cut losses up to 20%).
 
 ### Innovation:
 
-* Custom features (e.g., peak-hour analysis) tailored for Tanzania.
+* Custom features (e.g., peak-hour analysis) fitted for Tanzania.
 
 ### UX:
 
-* Intuitive dashboard empowers TCRA to optimize logistics.
+* Intuitive dashboard empowers Postal and Courier sector to optimize logistics.
 
 ---
