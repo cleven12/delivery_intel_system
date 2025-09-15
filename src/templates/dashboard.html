@@ -234,7 +234,7 @@
 <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 <script>
 // Initialize charts with data from Flask
-const chartData = {{ chart_data | tojson | safe }};
+const chartData = {{ chart_data | tojson | safe }}; 
 
 // Initialize all charts
 document.addEventListener('DOMContentLoaded', function() {

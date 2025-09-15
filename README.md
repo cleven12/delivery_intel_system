@@ -31,8 +31,8 @@ To run the **Delivery Intelligence System** locally, follow these simple steps:
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/cleven12/kilitech-duo.git
-cd kilitech-duo
+git clone https://github.com/cleven12/delivery_intel_system.git
+cd delivery_intel_system
 ````
 
 ### 2. Install Dependencies
@@ -48,6 +48,7 @@ pip install -r requirements.txt
 Start the Flask application by running:
 
 ```bash
+cd src
 python app.py
 ```
 
@@ -83,10 +84,10 @@ pip install -r requirements.txt
 ## Deployment
 
 You can access the live version of the system at the following URL:
-**[Kilitech Duo - Delivery Intelligence System](https://kilitechduo.pythonanywhere.com)**
+**[Kilitech Duo - Delivery Intelligence System](https://anna2tx.pythonanywhere.com)**
 
 The code for this project is available on GitHub:
-**[GitHub Repository](https://github.com/cleven12/kilitech-duo)**
+**[GitHub Repository](https://github.com/cleven12/delivery_intel_system)**
 
 ## System Architecture
 
