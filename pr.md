@@ -5,7 +5,7 @@
 
 **Team**: Kilitech Duo  
 **Team Members**: Faustine Emmanuel, Cleven Godson  
-**Mentor**: Madaraka Masasi  
+**Mentor**: Mr.Madaraka Masasi  
 **Hackathon**: Digital Clubs HACKATHON - 2025  
 **Presented to**: Tanzania Communications Regulatory Authority (TCRA)
 
