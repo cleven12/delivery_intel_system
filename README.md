@@ -133,7 +133,7 @@ The code for this project is available on GitHub:
 
 * **Pandas**: Used for CSV processing and data manipulation.
 * **NumPy**: For numerical operations and custom machine learning models.
-* **Scikit-learn**: Provides metrics for model evaluation (e.g., MAE, MSE, R²).
+* **Scikit-learn**: Provides metrics for model evaluation.
 
 ### Frontend Libraries
 
