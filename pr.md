@@ -45,7 +45,7 @@ Our **Delivery Intelligence System** is a Flask-based web app that uses AI to:
 ```python
 class DeliveryPredictor:
     def train(self, data):
-        X, y = self._prepare_features(data)  # Features: distance, hour_of_day
+        X, y = self._prepare_features(data)
         X_normalized = (X - np.mean(X, axis=0)) / (np.std(X, axis=0) + 1e-8)
         X_with_bias = np.column_stack([np.ones(X_normalized.shape[0]), X_normalized])
         theta = np.linalg.solve(X_with_bias.T @ X_with_bias, X_with_bias.T @ y)
